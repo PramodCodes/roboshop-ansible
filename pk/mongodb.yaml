@@ -6,8 +6,6 @@
     ansible.builtin.copy:
       src: mongodb.repo
       dest: /etc/yum.repos.d/mongo.repo
-    ansible.builtin.debug:
-      msg: "ansible repo copy is successful"
 
   - name: install mongodb
     ansible.builtin.package:
