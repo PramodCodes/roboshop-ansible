@@ -5,8 +5,8 @@
   tasks:
   - name: copy mongodb repo
     ansible.builtin.copy:
-    src: mongodb.repo
-    dest: /etc/yum.repos.d/mongo.repo
+      src: mongodb.repo
+      dest: /etc/yum.repos.d/mongo.repo
     ansible.builtin.debug:
       msg: "ansible repo copy is successful"
 
