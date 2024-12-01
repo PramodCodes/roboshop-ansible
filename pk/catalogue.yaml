@@ -1,0 +1,21 @@
+- name: setting up catalogue
+  hosts: catalogue
+  become: yes
+  tasks:
+# disable and enable in ansible
+#- name: disable node js module
+#  ansible.builtin.dnf:
+#    name: nodejs
+#    state: absent
+#- name: enable dnf modules
+#  ansible.builtin.dnf:
+#    name: nodejs:18
+#    state: present
+  - name: disable and enable nodejs module
+    ansible.builtin.command: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+#    ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+
+#  - name: Install NodeJS
+#    ansible.builtin.dnf:
+#      name: nodejs
+#      state: present
