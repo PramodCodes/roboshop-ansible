@@ -44,7 +44,7 @@
       src: /tmp/catalogue.zip
       dest: /app
       remote_src: yes
-      
+
 #Lets download the dependencies.
   - name: install dependencies
     ansible.builtin.command:
