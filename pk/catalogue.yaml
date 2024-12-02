@@ -13,6 +13,7 @@
 #    state: present
   - name: disable and enable nodejs module
     ansible.builtin.command: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+
 #    ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
 
 #  - name: Install NodeJS
