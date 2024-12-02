@@ -84,7 +84,7 @@
 
 #check if data is loaded or not
   - name: get the categories count
-    ansible.builtin.command:  mongo --host mongodb.daws76s.online --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
+    ansible.builtin.command:  mongo --host mongodb.pka.in.net --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
     register: product_count
 
   - name: print the count
