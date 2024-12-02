@@ -90,7 +90,6 @@
   - name: print the count
     ansible.builtin.debug:
       msg: "product count: {{product_count}}"
-50:42
 
 
 #  - name: start and enable catalogue
