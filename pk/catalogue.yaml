@@ -12,7 +12,9 @@
 #    name: nodejs:18
 #    state: present
   - name: disable and enable nodejs module
-    ansible.builtin.command: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+    ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+      # ansible.builtin.command: will not be able to parse the command in the first place
+
 
 #    ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
 
