@@ -2,19 +2,19 @@
   hosts: catalogue
   become: yes
   tasks:
-# disable and enable in ansible
-#- name: disable node js module
-#  ansible.builtin.dnf:
-#    name: nodejs
-#    state: absent
-#- name: enable dnf modules
-#  ansible.builtin.dnf:
-#    name: nodejs:18
-#    state: present
+# disable and enable in ansible not sure if following block works
+# - name: disable node js module
+#   ansible.builtin.dnf:
+#     name: nodejs
+#     state: absent
+# - name: enable dnf modules
+#   ansible.builtin.dnf:
+#     name: nodejs:18
+#     state: present
+
   - name: disable and enable nodejs module
     ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
-      # ansible.builtin.command: will not be able to parse the command in the first place
-
+    # ansible.builtin.command: will not be able to parse the command in the first place
 
 #    ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
 
@@ -22,24 +22,29 @@
     ansible.builtin.dnf:
       name: nodejs
       state: present
+
   - name: add roboshop user
     ansible.builtin.user:
       name: roboshop
+
   - name: Create a directory if it does not exist
     ansible.builtin.file:
       path: /app
       state: directory # if you dont specify as directory it will be treated as file
 #      mode: '0755'
       #why ansible.builtin.file:  has mode: of 4 characters not 3 ?
+
   - name: Download catalogue
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
       dest: /tmp
+
   - name: Extract archive
     ansible.builtin.unarchive:
       src: /tmp/catalogue.zip
       dest: /app
       remote_src: yes
+      
 #Lets download the dependencies.
   - name: install dependencies
     ansible.builtin.command:
@@ -56,6 +61,7 @@
     ansible.builtin.copy:
       src: catalogue.service
       dest: /etc/systemd/system/catalogue.service
+
 #Load the service.
   - name: reload deamon and restart
     ansible.builtin.systemd_service:
