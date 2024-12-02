@@ -82,6 +82,17 @@
       state: present
 # you cannot load same data twice you will get duplicate keys error
 
+#check if data is loaded or not
+  - name: get the categories count
+    ansible.builtin.command:  mongo --host mongodb.daws76s.online --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
+    register: product_count
+
+  - name: print the count
+    ansible.builtin.debug:
+      msg: "product count: {{product_count}}"
+50:42
+
+
 #  - name: start and enable catalogue
 #    ansible.builtin.service:
 #      name: catalogue
