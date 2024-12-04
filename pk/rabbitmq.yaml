@@ -6,7 +6,7 @@
     ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
 
   - name: configure rabbitmq
-    ansible.builtin.shell:  curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+    ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
 
   - name: install rabbit mq
     ansible.builtin.dnf:
@@ -21,7 +21,7 @@
       name: rabbitmq-server
       state: restarted
       enabled: yes
-      
+
   - name: set permissions
     ansible.builtin.command: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
 
