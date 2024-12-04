@@ -1,0 +1,5 @@
+- name: install rabbitmq component
+  hosts: rabbitmq
+  become: yes
+  1:07:31
+  
