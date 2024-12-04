@@ -1,0 +1,9 @@
+#Redis is used for in-memory data storage(Caching) and allows users to access the data of database over API.
+- name: configure redis
+  hosts: redis
+  become: yes
+  tasks:
+    - name: install redis from repo
+      ansible.builtin.dnf:
+        name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+        state: present
