@@ -7,6 +7,18 @@
       ansible.builtin.dnf:
         name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
         state: present
+        disable_gpg_check: true
+#A GPG check is a method used to verify the integrity and authenticity of software packages,
+#  especially in Linux environments. It uses GNU Privacy Guard (GPG) to ensure that the software package
+#  has not been tampered with and comes from a trusted source.
+#Here's a simplified breakdown of how it works:
+#Public and Private Keys: GPG uses a pair of keys – a public key and a private key. The software package
+#  is signed with the private key, and the signature is verified using the public key3.
+#Verification Process: When you download a package, you can use GPG to verify the signature against
+#  the package. If the signature matches, it means the package is authentic and hasn't been altered3.
+#Security: This process helps maintain a high level of security by ensuring that only verified
+#  and authentic software is installed on your system.
+
 #Enable Redis 6.2 from package streams.
     - name: enable redis
       ansible.builtin.command:  dnf module enable redis:remi-6.2 -y
