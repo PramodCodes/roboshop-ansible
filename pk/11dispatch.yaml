@@ -1,0 +1,35 @@
+- name: install rabbitmq component
+  hosts: dispatch
+  become: yes
+  tasks:
+  - name: install golang
+    ansible.builtin.dnf:
+      name: golang
+      state:  present
+
+  - name: add application user
+    ansible.builtin.user:
+      name: roboshop
+
+  - name: delete exisiting app directory
+    ansible.builtin.file:
+      path: /app
+      state: absent
+
+  - name: create app directory
+    ansible.builtin.file:
+      path: /app
+      state: directory
+
+  - name: download application archive
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/dispatch.zip
+      dest: /tmp
+
+  - name: extract application archive
+    ansible.builtin.unarchive:
+      src: /tmp/dispatch.zip
+      dest: /app
+      remote_src: yes
+
+  - name: download dependencies
