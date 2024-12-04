@@ -43,6 +43,7 @@ PRIVATE_IP=$(aws ec2 run-instances --image-id $AMI --count 1 --instance-type $IN
 
 
 # Creates route 53 records based on env name
+# "Action"              : "UPSERT", f "CREATE", then it will only create ,UPSERT will create and update
 
 aws route53 change-resource-record-sets \
   --hosted-zone-id $ZONE_ID \
@@ -50,7 +51,7 @@ aws route53 change-resource-record-sets \
   {
     "Comment": "creating a record set '$i'",
     "Changes": [{
-      "Action"              : "UPSERT", # If "CREATE", then it will only create ,UPSERT will create and update
+      "Action"              : "UPSERT", 
       "ResourceRecordSet"  : {
           "Name"              : "'$i'.'$DOMAIN_NAME'",
           "Type"             : "A",
