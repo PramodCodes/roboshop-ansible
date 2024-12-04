@@ -41,6 +41,8 @@
 
   - name: change the direcoty of jar
     ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+    args:
+      chdir: /app
 
   - name: copy shipping service
     ansible.builtin.copy:
@@ -70,7 +72,7 @@
     when: schema.stdout != "1"
 
   - name: start and enable shipping
-  ansible.builtin.service:
-    name: shipping
-    state: restarted
-    enabled: yes
+    ansible.builtin.service:
+      name: shipping
+      state: restarted
+      enabled: yes
