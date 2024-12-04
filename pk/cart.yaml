@@ -1,0 +1,63 @@
+- name: setting up catalogue
+  hosts: catalogue
+  become: yes
+  tasks:
+
+  - name: disable and enable nodejs module
+    ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+
+  - name: Install NodeJS
+    ansible.builtin.dnf:
+      name: nodejs
+      state: present
+
+  - name: add roboshop user
+    ansible.builtin.user:
+      name: roboshop
+
+  - name: remove directory if exists to avoid issues
+    ansible.builtin.file:
+      path: /app
+      state: absent
+
+  - name: Create a directory if it does not exist
+    ansible.builtin.file:
+      path: /app
+      state: directory
+
+  - name: Download cart
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/cart.zip
+      dest: /tmp
+
+  - name: Extract archive
+    ansible.builtin.unarchive:
+      src: /tmp/cart.zip
+      dest: /app
+      remote_src: yes
+
+#Lets download the dependencies.
+  - name: install dependencies
+    ansible.builtin.command:
+      chdir: /app
+      cmd: npm install
+
+
+#Setup SystemD cart Service
+  - name: copy cart service
+    ansible.builtin.copy:
+      src: cart.service
+      dest: /etc/systemd/system/cart.service
+
+#Load the service.
+  - name: reload deamon and restart
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+# lets start cart service after the data is loaded because without data it will throw exceptions
+#so moving the below block to end for start and enable cart service
+
+  - name: start and enable cart
+    ansible.builtin.service:
+      name: cart
+      state: restarted #restarting a service instead of starting a service
+      enabled: yes # enabling a service
