@@ -50,7 +50,7 @@ aws route53 change-resource-record-sets \
   {
     "Comment": "creating a record set '$i'",
     "Changes": [{
-      "Action"              : "CREATE",
+      "Action"              : "UPSERT", # If "CREATE", then it will only create ,UPSERT will create and update
       "ResourceRecordSet"  : {
           "Name"              : "'$i'.'$DOMAIN_NAME'",
           "Type"             : "A",
